@@ -1,0 +1,13 @@
+<ng-container *ngTemplateOutlet="customTemplateContainer; context: { templateMethod: this.logger.logInput.bind(this) }">
+</ng-container>
+
+<ng-template #defaultTemplate let-logger="templateMethod">
+    <h1>I am the default template</h1>
+    <ng-container
+        *ngTemplateOutlet="customLoggerTemplate ? customLoggerTemplate : defaultLoggerTemplate; context { $implicit: logger.bind(this)}">
+    </ng-container>
+</ng-template>
+
+<ng-template #defaultLoggerTemplate>
+    <button (click)="this.logger.logInput('From default template')">This is default logger</button>
+</ng-template>
