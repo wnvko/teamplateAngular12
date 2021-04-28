@@ -1,9 +1,8 @@
 <app-templatable></app-templatable>
 
 <app-templatable>
-    <ng-template customTemplate let-customLogger="templateMethod">
+    <ng-template customTemplate let-customLogMethod>
         <h1>This is my custom template</h1>
-        <button customLoggerTemplate (click)="customLogger('From custom template')">This is custom logger</button>
+        <button customLoggerTemplate (click)="customLogMethod('From custom template')">This is custom logger</button>
     </ng-template>
 </app-templatable>
-

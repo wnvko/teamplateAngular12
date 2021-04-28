@@ -7,13 +7,7 @@ import { TemplatableComponent } from './templatable.component';
 
 
 describe('TemplatableComponent', () => {
-  beforeAll(() => {
-  });
-
-  let component: AppTemplateTestComponent;
-  let fixture: ComponentFixture<AppTemplateTestComponent>;
-
-  beforeEach(() => {
+  it('Should call context methods', () => {
     TestBed.configureTestingModule({
       declarations: [
         TemplatableComponent,
@@ -23,11 +17,10 @@ describe('TemplatableComponent', () => {
       ]
     })
       .compileComponents();
-    fixture = TestBed.createComponent(AppTemplateTestComponent);
-    component = fixture.componentInstance;
+    const fixture = TestBed.createComponent(AppTemplateTestComponent);
+    const component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-  it('Should call context methods', () => {
+
     spyOn(component.templatableComponent.logger, 'logInput').and.callThrough();
     const buttonElement = fixture.debugElement.query(By.css('button'));
     buttonElement.nativeElement.click();
@@ -36,19 +29,18 @@ describe('TemplatableComponent', () => {
   });
 });
 
+
 @Component({
   template: `
   <app-templatable>
-    <ng-template customTemplate let-customLogger="templateMethod">
+    <ng-template customTemplate let-customLogMethod>
       <h1>This is my custom template</h1>
-      <button customLoggerTemplate (click)="customLogger('From custom template')">This is custom logger</button>
+      <button customLoggerTemplate (click)="customLogMethod('From custom template')">This is custom logger</button>
     </ng-template>
   </app-templatable>
-
   `
 })
 export class AppTemplateTestComponent {
   @ViewChild(TemplatableComponent, { static: true, read: TemplatableComponent })
   public templatableComponent!: TemplatableComponent;
 }
-
